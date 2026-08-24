@@ -24,8 +24,8 @@ No build step, no dependencies. It's HTML, CSS and one JS file.
 Drop the audio into `audio/`, named exactly as the `file:` fields in `js/tracks.js`:
 
 ```
-a1-butterfly.mp3   a2-danger.mp3   a3-dynamite.mp3   a4-euphoria.mp3   a5-ghost.mp3
-b1-salaam-aaya.mp3 b2-jab-julo-bareli.mp3            b3-blue.mp3       b4-comethru.mp3
+a1-butterfly.mp3    a2-danger.mp3   a3-dynamite.mp3   a4-euphoria.mp3   a5-light.mp3
+b1-salaam-aaya.mp3  b2-blue.mp3     b3-comethru.mp3   b4-ghost.mp3      b5-holy.mp3
 ```
 
 **A missing file isn't a broken page.** The player drops into *silent reel* mode: it runs
@@ -65,4 +65,4 @@ set *Publish directory* to `.`
 
 ---
 
-Nine songs belong to their artists. This tape doesn't.
+Ten songs belong to their artists. This tape doesn't.

@@ -38,7 +38,7 @@ const TAPE = {
     sign: "— still on Side B"
   },
 
-  /* ── nine songs ─────────────────────────────────────────────────
+  /* ── ten songs ─────────────────────────────────────────────────
      file: put an mp3 at audio/<file> and it plays for real.
            Missing file = "silent reel": the tape still runs on its
            printed duration so the whole thing stays usable.
@@ -52,16 +52,18 @@ const TAPE = {
       note:"pure 4 p.m. sunlight", hue:46 },
     { side:"a", n:4, title:"Euphoria",    artist:"BTS (Jungkook)", dur:"4:12", file:"a4-euphoria.mp3",
       note:"her word, not mine", hue:196 },
-    { side:"a", n:5, title:"Ghost",       artist:"Justin Bieber",  dur:"2:34", file:"a5-ghost.mp3",
-      note:"where side A cracks", hue:210 },
+    { side:"a", n:5, title:"Light",       artist:"BTS",            dur:"3:52", file:"a5-light.mp3",
+      note:"the day refusing to end", hue:52 },
 
     { side:"b", n:1, title:"Salaam Aaya", artist:"Veer-Zaara",     dur:"5:54", file:"b1-salaam-aaya.mp3",
       note:"the translated one", hue:268 },
-    { side:"b", n:2, title:"Jab Julo Bareli", artist:"the one she sent", dur:"4:51", file:"b2-jab-julo-bareli.mp3",
-      note:"hers before it was ours", hue:280 },
-    { side:"b", n:3, title:"blue",        artist:"yung kai",       dur:"3:42", file:"b3-blue.mp3",
+    { side:"b", n:2, title:"blue",        artist:"yung kai",       dur:"3:42", file:"b2-blue.mp3",
       note:"1 a.m. exactly", hue:230 },
-    { side:"b", n:4, title:"comethru",    artist:"Jeremy Zucker",  dur:"3:01", file:"b4-comethru.mp3",
-      note:"the closing argument", hue:252 }
+    { side:"b", n:3, title:"comethru",    artist:"Jeremy Zucker",  dur:"3:01", file:"b3-comethru.mp3",
+      note:"typed, deleted, sent anyway", hue:252 },
+    { side:"b", n:4, title:"Ghost",       artist:"Justin Bieber",  dur:"2:34", file:"b4-ghost.mp3",
+      note:"where it cracks", hue:214 },
+    { side:"b", n:5, title:"Holy",        artist:"Justin Bieber",  dur:"3:32", file:"b5-holy.mp3",
+      note:"the last word", hue:288 }
   ]
 };
