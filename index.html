@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>40 — For All Your Moonlit &amp; Sunlit Days</title>
+<meta name="description" content="A hand-made mixtape. Side A is honey and daylight. Side B is lavender and moonlight." />
+<meta name="theme-color" content="#7fc7f0" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📼</text></svg>">
+</head>
+<body data-side="a" class="is-booting">
+
+<!-- ══════════ THE SKY ══════════ -->
+<div class="scene" aria-hidden="true">
+  <div class="sky"></div>
+  <div class="sun-moon"><div class="disc"></div><div class="halo"></div></div>
+  <canvas class="particles" id="particles"></canvas>
+
+  <div class="clouds far">
+    <svg viewBox="0 0 1200 300" preserveAspectRatio="none"><use href="#cloudband"/></svg>
+    <svg viewBox="0 0 1200 300" preserveAspectRatio="none"><use href="#cloudband"/></svg>
+  </div>
+  <div class="clouds mid">
+    <svg viewBox="0 0 1200 300" preserveAspectRatio="none"><use href="#cloudband2"/></svg>
+    <svg viewBox="0 0 1200 300" preserveAspectRatio="none"><use href="#cloudband2"/></svg>
+  </div>
+
+  <div class="rays"></div>
+
+  <!-- distant town + wires + train -->
+  <div class="horizon">
+    <svg class="hills" viewBox="0 0 1440 220" preserveAspectRatio="none">
+      <path d="M0 150 C 160 96, 250 120, 380 104 C 520 86, 610 132, 760 118 C 900 104, 1010 74, 1140 100 C 1270 126, 1360 112, 1440 96 L1440 220 L0 220Z"/>
+    </svg>
+    <svg class="town" viewBox="0 0 1440 200" preserveAspectRatio="none">
+      <path d="M0 168h64v-26h22v26h40v-44h30v44h48v-18h26v18h54v-58h34v58h44v-30h28v30h60v-40h30v40h52v-22h24v22h58v-52h32v52h46v-34h28v34h64v-24h26v24h52v-46h30v46h48v-30h28v30h60v-18h24v18h56v-40h30v40h50v-28h26v28h74v-20h22v20h58V200H0Z"/>
+      <g class="lit"></g>
+    </svg>
+    <svg class="wires" viewBox="0 0 1440 300" preserveAspectRatio="none">
+      <path d="M-20 66 Q 180 120 380 62 Q 580 8 780 70 Q 980 130 1180 66 Q 1330 20 1460 58"/>
+      <path d="M-20 92 Q 180 152 380 88 Q 580 32 780 98 Q 980 160 1180 92 Q 1330 44 1460 84"/>
+      <g class="poles">
+        <path d="M378 58 v190 M352 74 h52 M358 96 h40"/>
+        <path d="M778 66 v190 M752 82 h52 M758 104 h40"/>
+        <path d="M1178 62 v190 M1152 78 h52 M1158 100 h40"/>
+      </g>
+      <g class="birds">
+        <path d="M120 44 q8 -7 15 0 q7 -7 15 0"/>
+        <path d="M170 30 q6 -5 11 0 q5 -5 11 0"/>
+        <path d="M206 52 q5 -4 9 0 q4 -4 9 0"/>
+      </g>
+    </svg>
+    <div class="rail"><div class="train"><span></span><span></span><span></span><span></span></div></div>
+  </div>
+
+  <div class="grain"></div>
+  <div class="vignette"></div>
+</div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="cloudband"><path d="M0 210 C 90 150, 150 196, 216 160 C 270 130, 320 168, 380 152 C 440 136, 470 96, 540 118 C 600 136, 640 106, 700 130 C 764 156, 800 120, 866 144 C 930 168, 980 138, 1040 160 C 1100 182, 1150 158, 1200 186 L1200 300 L0 300Z"/></symbol>
+    <symbol id="cloudband2"><path d="M0 250 C 80 210, 130 246, 200 226 C 268 206, 300 172, 372 194 C 440 214, 486 186, 552 206 C 620 226, 664 198, 736 218 C 806 238, 852 208, 920 230 C 990 252, 1040 224, 1100 244 C 1150 260, 1170 240, 1200 246 L1200 300 L0 300Z"/></symbol>
+  </defs>
+</svg>
+
+<!-- ══════════ SIDE SWITCH ══════════ -->
+<div class="side-switch" role="group" aria-label="Choose a side of the tape">
+  <button class="ss-btn" data-goside="a" aria-pressed="true"><em>A</em><span>Honey &amp; Daylight</span></button>
+  <button class="ss-btn" data-goside="b" aria-pressed="false"><em>B</em><span>Lavender &amp; Moonlight</span></button>
+</div>
+
+<main>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero">
+  <div class="tape-strip">
+    <span class="ts-num">40</span>
+    <span class="ts-title">For All Your Moonlit &amp; Sunlit Days <i>✩</i> <i>♫</i></span>
+    <span class="ts-star"></span>
+  </div>
+
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow" data-reveal>a mixtape, recorded once, never sent properly</p>
+      <h1 data-reveal>
+        <span class="l1">For all your</span>
+        <span class="l2"><em class="sunword">sunlit</em> &amp; <em class="moonword">moonlit</em></span>
+        <span class="l3">days</span>
+      </h1>
+      <p class="hero-sub" data-reveal>Forty of them, give or take. Nine songs. Two sides.
+      One of them is loud enough to dance to in a corridor. The other one is for 2&nbsp;a.m.</p>
+      <div class="hero-cta" data-reveal>
+        <button class="btn-primary" id="pressPlay"><span class="dot"></span> press play</button>
+        <a class="btn-ghost" href="#tracklist">see the tracklist</a>
+      </div>
+      <p class="hero-foot" data-reveal>Side <b id="heroSide">A</b> — <span id="heroSideName">Honey &amp; Daylight</span></p>
+    </div>
+
+    <!-- ── CASSETTE ── -->
+    <div class="cassette-wrap" data-reveal>
+      <div class="cassette" id="cassette">
+        <div class="c-label">
+          <span class="c-side" id="cSide">A</span>
+          <span class="c-name" id="cName">Honey &amp; Daylight</span>
+          <span class="c-scribble">♡</span>
+        </div>
+        <div class="c-window">
+          <div class="reel left"><div class="tape" id="tapeL"></div><div class="hub"></div></div>
+          <div class="c-tapeline"></div>
+          <div class="reel right"><div class="tape" id="tapeR"></div><div class="hub"></div></div>
+        </div>
+        <div class="c-bottom"><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="c-now" id="cNow">— insert tape —</div>
+      </div>
+      <div class="cassette-shadow"></div>
+    </div>
+  </div>
+
+  <div class="scroll-hint" data-reveal><span></span>scroll</div>
+</section>
+
+<!-- ══════════ PERSONA ══════════ -->
+<section class="persona" id="persona">
+  <div class="section-head" data-reveal>
+    <span class="sh-kicker">side note</span>
+    <h2>Who the tape is for</h2>
+  </div>
+
+  <div class="persona-card" data-reveal>
+    <div class="pc-photo">
+      <div class="pc-frame">
+        <div class="pc-illo">
+          <svg viewBox="0 0 300 380" class="pc-svg">
+            <defs>
+              <linearGradient id="pcsky" x1="0" y1="0" x2="0" y2="1">
+                <stop class="s1" offset="0"/><stop class="s2" offset="1"/>
+              </linearGradient>
+            </defs>
+            <rect width="300" height="380" fill="url(#pcsky)"/>
+            <circle class="pc-orb" cx="206" cy="88" r="30"/>
+            <g class="pc-motes"><circle cx="58" cy="118" r="2.6"/><circle cx="92" cy="172" r="1.8"/>
+              <circle cx="248" cy="196" r="2.2"/><circle cx="40" cy="232" r="1.8"/><circle cx="262" cy="132" r="1.8"/>
+              <circle cx="150" cy="96" r="1.6"/><circle cx="112" cy="60" r="1.4"/></g>
+            <path class="pc-cloud" d="M0 236 C 52 214, 96 240, 148 224 C 200 208, 244 232, 300 214 L300 260 L0 260Z"/>
+            <path class="pc-cloud b" d="M0 268 C 60 250, 104 272, 156 258 C 210 244, 250 264, 300 250 L300 300 L0 300Z"/>
+            <path class="pc-hill" d="M0 316 C 70 292, 120 306, 178 298 C 236 290, 268 302, 300 296 L300 380 L0 380Z"/>
+            <g class="pc-ink">
+              <path d="M-10 262 Q 70 292 150 258 Q 230 224 310 254"/>
+              <path d="M-10 274 Q 70 304 150 270 Q 230 236 310 266"/>
+              <path d="M62 250 v66 M46 258 h32 M50 268 h24"/>
+              <path d="M246 240 v72 M230 248 h32 M234 258 h24"/>
+              <path d="M96 122 q7 -6 13 0 q6 -6 13 0" class="bird"/>
+              <path d="M132 104 q5 -4 9 0 q4 -4 9 0" class="bird"/>
+            </g>
+            <g class="pc-girl">
+              <path d="M150 288 c-7 0 -10 5 -11 10 l-5 26 q16 5 32 0 l-5 -26 c-1 -5 -4 -10 -11 -10Z"/>
+              <path d="M141 268 q9 -13 18 0 q4 15 1 28 q-10 -6 -20 0 q-3 -13 1 -28Z"/>
+              <circle cx="150" cy="266" r="8.5"/>
+              <path d="M143 322 v10 M157 322 v10" stroke-width="4"/>
+            </g>
+          </svg>
+        </div>
+        <span class="pc-tape tl"></span><span class="pc-tape br"></span>
+      </div>
+      <p class="pc-caption">"she's two weathers in one person"</p>
+    </div>
+
+    <div class="pc-body">
+      <h3 class="pc-name" id="personaName">The girl made of two weathers</h3>
+      <p class="pc-lede" id="personaLede">Daylight-loud and midnight-quiet, sometimes in the same hour. She'll send you a BTS
+      choreo at 4 p.m. like it's urgent news, then go completely soft at 1 a.m. and put on something in a language
+      you have to translate. Both are her. That's the whole point of two sides.</p>
+
+      <ul class="pc-traits" id="personaTraits"></ul>
+
+      <div class="pc-meters">
+        <div class="meter"><span>sunlight</span><i style="--v:82%"></i><b>82%</b></div>
+        <div class="meter"><span>moonlight</span><i style="--v:91%"></i><b>91%</b></div>
+        <div class="meter"><span>plays one song on loop</span><i style="--v:97%"></i><b>97%</b></div>
+        <div class="meter"><span>knows he wrote this</span><i style="--v:14%"></i><b>?</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ TRACKLIST ══════════ -->
+<section class="tracklist" id="tracklist">
+  <div class="section-head" data-reveal>
+    <span class="sh-kicker">nine songs</span>
+    <h2>The tracklist</h2>
+    <p>Click a line to play it. Side A is for the version of her that's awake.
+    Side B is for the version that texts you goodnight and then doesn't sleep.</p>
+  </div>
+
+  <div class="paper" data-reveal>
+    <div class="paper-holes"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="sides">
+      <div class="side-col" data-side-col="a">
+        <div class="side-head"><span class="sh-letter">A</span>
+          <span class="sh-title"><small>TITLE</small> Honey &amp; Daylight</span></div>
+        <ol class="lines" id="listA"></ol>
+        <div class="doodle walkman">
+          <svg viewBox="0 0 130 84"><rect x="6" y="10" width="100" height="64" rx="7"/><rect x="18" y="22" width="76" height="30" rx="4"/><circle cx="38" cy="37" r="7"/><circle cx="74" cy="37" r="7"/><path d="M45 37h22"/><path d="M26 64h12M52 64h12M78 64h12"/><path d="M106 30 q20 6 18 30" stroke-dasharray="0"/><path d="M118 66 a7 7 0 1 0 .1 0"/></svg>
+        </div>
+      </div>
+      <div class="side-col" data-side-col="b">
+        <div class="side-head"><span class="sh-letter">B</span>
+          <span class="sh-title"><small>TITLE</small> Lavender &amp; Moonlight</span></div>
+        <ol class="lines" id="listB"></ol>
+        <div class="doodle leaf">
+          <svg viewBox="0 0 120 120"><path d="M104 16 C 62 20 30 44 24 82 C 22 96 28 104 40 102 C 76 96 100 62 104 16Z"/><path d="M104 16 L16 104"/><path d="M84 34 L62 32 M74 52 L48 48 M60 68 L38 66"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ LETTER ══════════ -->
+<section class="letter-sec" id="letter">
+  <div class="section-head" data-reveal>
+    <span class="sh-kicker">side B, track ∞</span>
+    <h2>The unsent bit</h2>
+  </div>
+  <div class="envelope" id="envelope" data-reveal tabindex="0" role="button" aria-expanded="false"
+       aria-label="Open the letter">
+    <div class="env-flap"></div>
+    <div class="env-front"><span class="env-hint">tap to open</span></div>
+    <span class="env-seal">♡</span>
+    <div class="note" id="note">
+      <p id="letterText"></p>
+      <p class="sign" id="letterSign"></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="fo-line">Recorded on a Tuesday. <span>40 / For All Your Moonlit &amp; Sunlit Days</span></p>
+  <p class="fo-small">Nine songs belong to their artists. This tape doesn't.</p>
+</footer>
+</main>
+
+<!-- ══════════ PLAYER ══════════ -->
+<div class="player" id="player" aria-label="Player">
+  <div class="pl-progress" id="progressBar" role="slider" aria-label="Seek" tabindex="0"
+       aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+    <div class="pl-fill" id="progFill"><span class="pl-knob"></span></div>
+  </div>
+
+  <div class="pl-body">
+    <div class="pl-meta">
+      <div class="pl-art" id="plArt"><div class="pl-art-inner"></div><div class="pl-eq"><i></i><i></i><i></i><i></i></div></div>
+      <div class="pl-txt">
+        <div class="pl-title" id="plTitle">Nothing playing</div>
+        <div class="pl-sub"><span id="plArtist">pick a line from the tracklist</span>
+          <span class="pl-badge" id="plBadge">A</span></div>
+      </div>
+    </div>
+
+    <div class="pl-controls">
+      <button class="pl-btn" id="btnPrev" aria-label="Previous">
+        <svg viewBox="0 0 24 24"><path d="M7 5v14M20 5 9 12l11 7z"/></svg></button>
+      <button class="pl-btn play" id="btnPlay" aria-label="Play">
+        <svg class="i-play" viewBox="0 0 24 24"><path d="M7 4.5 20 12 7 19.5z"/></svg>
+        <svg class="i-pause" viewBox="0 0 24 24"><path d="M8 5h3.4v14H8zM12.6 5H16v14h-3.4z"/></svg>
+      </button>
+      <button class="pl-btn" id="btnNext" aria-label="Next">
+        <svg viewBox="0 0 24 24"><path d="M17 5v14M4 5l11 7-11 7z"/></svg></button>
+    </div>
+
+    <div class="pl-right">
+      <span class="pl-time"><b id="tCur">0:00</b> <i>/</i> <span id="tDur">0:00</span></span>
+      <button class="pl-btn small" id="btnLoop" aria-label="Repeat" aria-pressed="false">
+        <svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 8-8h5m0 0-3-3m3 3-3 3M20 12a8 8 0 0 1-8 8H7m0 0 3 3m-3-3 3-3"/></svg></button>
+      <div class="pl-vol">
+        <button class="pl-btn small" id="btnMute" aria-label="Mute">
+          <svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z"/><path class="w1" d="M16.5 8.8a4.5 4.5 0 0 1 0 6.4"/><path class="w2" d="M19 6.3a8 8 0 0 1 0 11.4"/></svg></button>
+        <input type="range" id="vol" min="0" max="100" value="80" aria-label="Volume">
+      </div>
+    </div>
+  </div>
+  <div class="pl-ghost" id="ghostNote" hidden>silent reel — drop mp3s in <code>/audio</code> to hear it</div>
+</div>
+
+<audio id="audio" preload="none"></audio>
+
+<script src="js/tracks.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
