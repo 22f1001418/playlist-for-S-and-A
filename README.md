@@ -58,10 +58,16 @@ set *Publish directory* to `.`
 **Render — Web Service**: Build `npm install`, Start `npm start`. `server.js` binds
 `process.env.PORT` and serves byte ranges, so audio seeking works.
 
-**Vercel / Netlify / GitHub Pages**: it's a static folder — point them at the repo root.
+**Vercel**: import the repo, framework preset *Other*, no build command, output directory `.`
+The committed `vercel.json` already sets this, so the defaults should be left alone.
 
-> `.gitignore` excludes `audio/*.mp3` so you don't commit the songs. Remove those lines
-> if you want the tape to deploy with its music.
+**Netlify / GitHub Pages**: it's a static folder — point them at the repo root.
+
+`vercel.json` pins it to a no-build static deploy serving the repo root, and sets long
+cache headers on `/audio` so the songs aren't re-fetched on every visit.
+
+> The mp3s are committed, so the tape deploys with its music (~69 MB). That's the bulk of
+> the deployment — one full listen costs a visitor about that much bandwidth.
 
 ---
 
