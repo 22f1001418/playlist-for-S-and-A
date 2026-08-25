@@ -407,6 +407,7 @@ body[data-side="b"] .env-flap{background:linear-gradient(#4a4179,#37305e)}
 .note::after{content:"";position:absolute;left:30px;right:30px;top:62px;bottom:54px;
   background:repeating-linear-gradient(transparent 0 30.7px,rgba(30,45,70,.09) 30.7px 31.7px);pointer-events:none}
 .note p{position:relative;margin:0;font:600 20.5px/1.5 'Caveat',cursive;color:#1e2733}
+.note p em{font-style:italic;color:#b0722a}
 .note .sign{margin-top:18px;text-align:right;color:#b0722a;font-size:20px}
 .envelope.open .env-flap{transform:rotateX(-168deg);z-index:1}
 .envelope.open .note{opacity:1;z-index:6;transform:translateY(-56%) scale(1);pointer-events:auto}

@@ -133,7 +133,7 @@ if (lit) {
 $('#personaName').textContent = TAPE.persona.name;
 $('#personaLede').textContent = TAPE.persona.lede.replace(/\s+/g, ' ').trim();
 $('#personaTraits').innerHTML = TAPE.persona.traits.map(t => `<li>${t}</li>`).join('');
-$('#letterText').textContent = TAPE.letter.text.replace(/\s+/g, ' ').trim();
+$('#letterText').innerHTML = TAPE.letter.text.replace(/\s+/g, ' ').trim();
 $('#letterSign').textContent = TAPE.letter.sign;
 
 const yt = t => `https://www.youtube.com/results?search_query=${encodeURIComponent(t.title + ' ' + (t.artist === '—' ? '' : t.artist))}`;
