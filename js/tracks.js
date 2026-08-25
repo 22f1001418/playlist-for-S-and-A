@@ -4,7 +4,7 @@
    ═══════════════════════════════════════════════════════════════ */
 
 const TAPE = {
-  number: "40",
+  number: "21",
   title: "For All Your Moonlit & Sunlit Days",
 
   sides: {
@@ -20,23 +20,27 @@ const TAPE = {
            language you have to translate. Both are her. That's the whole reason this tape has two sides.`,
     traits: [
       "Laughs at her own joke a half-second before the punchline lands.",
-      "Owns exactly one hoodie that she has decided is <em>the</em> hoodie.",
+      "Sometimes forgets what she was saying while she’s still <em>saying</em> it.",
       "Plays a song forty times and calls it 'a phase'.",
       "Types a long message, deletes it, sends 'nothing lol'.",
-      "Somehow knows every word of a Hindi song she claims she's never heard.",
+      "Somehow knows every word of a Korean song she claims she's never heard.",
       "Is nicer to strangers than she is to herself. Working on it."
     ]
   },
 
   /* ── the unsent bit ─────────────────────────────────────────── */
   letter: {
-    text: `I've had forty chances to say this out loud and I used all of them talking about songs instead.
-           So here they are — the loud ones for the days you're impossible to keep up with, and the quiet
-           ones for the nights you go far away without moving. I don't need an answer. I just wanted one
-           thing in the world to be honest about it. If you get to the end of Side B and it feels like
-           someone was paying attention the whole time — yeah. That was the confession.`,
-    sign: "— still on Side B"
-  },
+     text: `I've had twenty-one chances to say all of this out loud, and somehow I kept finding songs instead. 
+     So I thought I'd let the songs do the talking this time. 
+     There's a little <em>Butterfly</em> for the way you keep changing and growing, a little <em>Dynamite</em> for the chaos and energy you somehow bring with you, and a little <em>Light</em> for the way you make ordinary days feel a bit brighter without even trying. 
+     There's <em>Euphoria</em> for the ridiculously happy moments, <em>Blue</em> for the quieter ones, and <em>comethru</em> for those days when you just need someone around without having to explain why. 
+     There's even a little <em>Ghost</em> in here, for all the moments that pass too quickly but somehow stay. 
+     And <em>Salaam</em> — because sometimes a simple thank you doesn't feel like enough.
+     So no, there's no big message hidden between the songs. Just a collection of little things that reminded me of you. 
+     Maybe that's what playlists are good for — saying the things you don't always know how to say, without making a big deal out of them. 
+     I just hope somewhere between Side A and Side B, you smile at least once and think, "okay, this is actually pretty nice."`,
+     sign: "— still on Side B"
+},
 
   /* ── ten songs ─────────────────────────────────────────────────
      file: put an mp3 at audio/<file> and it plays for real.
