@@ -30,6 +30,7 @@ const TAPE = {
 
   /* ── the unsent bit ─────────────────────────────────────────── */
   letter: {
+     salutation: "Dear Laxmi,",
      text: `I've had twenty-one chances to say all of this out loud, and somehow I kept finding songs instead. 
      So I thought I'd let the songs do the talking this time. 
      There's a little <em>Butterfly</em> for the way you keep changing and growing, a little <em>Dynamite</em> for the chaos and energy you somehow bring with you, and a little <em>Light</em> for the way you make ordinary days feel a bit brighter without even trying. 

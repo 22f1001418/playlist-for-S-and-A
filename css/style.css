@@ -405,7 +405,7 @@ body[data-side="b"] .env-flap{background:linear-gradient(#4a4179,#37305e)}
   opacity:0;transform:translateY(0) scale(.96);pointer-events:none;
   transition:transform .8s cubic-bezier(.2,.7,.3,1),opacity .5s}
 .note::after{content:"";position:absolute;left:30px;right:30px;top:62px;bottom:54px;
-  background:repeating-linear-gradient(transparent 0 30.7px,rgba(30,45,70,.09) 30.7px 31.7px);pointer-events:none}
+  background:repeating-linear-gradient(transparent 0 29.75px,rgba(30,45,70,.09) 29.75px 30.75px);pointer-events:none}
 .note p{position:relative;margin:0;font:600 20.5px/1.5 'Caveat',cursive;color:#1e2733}
 .note p em{font-style:italic;color:#b0722a}
 .note .sign{margin-top:18px;text-align:right;color:#b0722a;font-size:20px}
