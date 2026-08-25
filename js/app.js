@@ -155,7 +155,7 @@ for (const side of ['a', 'b']) {
 /* ═══════════ THE PLAYER ═══════════ */
 const audio = $('#audio');
 const P = { i: -1, playing: false, loop: false, ghost: false, pos: 0, dur: 0, last: 0,
-            seeking: false, lastT: -1, stall: 0 };
+            seeking: false, lastT: -1, stall: 0, resume: 0, retry: 0, recovering: false };
 
 const els = {
   title: $('#plTitle'), artist: $('#plArtist'), badge: $('#plBadge'), art: $('#plArt'),
@@ -200,6 +200,32 @@ function paintTrack(t) {
   }
 }
 
+const trackURL = t => `audio/${encodeURIComponent(t.file)}`;
+
+/* (re)point the element at the current track's file and remember where to pick up.
+   the browser drops a paused stream sometimes — rebuilding it must not lose the spot */
+function attach(seconds) {
+  const t = TRACKS[P.i];
+  if (!t) return;
+  P.resume = clamp(seconds || 0, 0, P.dur || 1e9);
+  P.lastT = -1; P.stall = 0;
+  audio.src = trackURL(t);
+  audio.load();
+}
+function unghost() {
+  if (!P.ghost) return;
+  P.ghost = false; els.ghost.hidden = true; P.stall = 0; P.lastT = -1;
+}
+/* a dropped stream isn't a missing file — rebuild it from where we were, twice at most */
+function recover() {
+  if (P.i < 0 || P.recovering || P.retry >= 2) return false;
+  P.retry++; P.recovering = true;
+  attach(P.pos);
+  if (P.playing) { const p = audio.play(); if (p && p.catch) p.catch(() => {}); }
+  setTimeout(() => { P.recovering = false; }, 1500);
+  return true;
+}
+
 function load(i, autoplay) {
   const t = TRACKS[clamp(i, 0, TRACKS.length - 1)];
   if (P.i >= 0 && P.i !== t.i) {
@@ -207,11 +233,11 @@ function load(i, autoplay) {
     if (prev) prev.classList.add('played');
   }
   P.i = t.i; P.pos = 0; P.dur = t.seconds; P.ghost = false; P.lastT = -1; P.stall = 0;
+  P.resume = 0; P.retry = 0; P.recovering = false;
   setSide(t.side);
   paintTrack(t);
-  const url = `audio/${encodeURIComponent(t.file)}`;
-  audio.src = url;
-  audio.load();
+  const url = trackURL(t);
+  attach(0);
   els.ghost.hidden = true;
   /* ask first: a missing file shouldn't cost six seconds of a dead progress bar */
   fetch(url, { method: 'HEAD' })
@@ -222,6 +248,8 @@ function load(i, autoplay) {
 
 function play() {
   if (P.i < 0) { load(0, true); return; }
+  /* the reel went silent earlier, or the src was torn down — try the real file again */
+  if (P.ghost || !audio.getAttribute('src')) { P.retry = 0; unghost(); attach(P.pos); }
   P.playing = true;
   P.last = performance.now();
   document.body.classList.add('playing');
@@ -235,6 +263,7 @@ function play() {
 }
 function pause() {
   P.playing = false; audio.pause();
+  if (!P.ghost && isFinite(audio.currentTime)) P.pos = audio.currentTime;
   document.body.classList.remove('playing');
   els.now.textContent = P.i >= 0 ? `‖ ${TRACKS[P.i].title}` : '— insert tape —';
   render();
@@ -256,7 +285,12 @@ function ended() {
 
 function seekTo(sec) {
   P.pos = clamp(sec, 0, P.dur || 1);
-  if (!P.ghost && isFinite(audio.duration)) { try { audio.currentTime = P.pos; } catch {} }
+  if (!P.ghost) {
+    if (isFinite(audio.duration) && audio.duration > 0) {
+      try { audio.currentTime = P.pos; } catch { P.resume = P.pos; }
+    } else P.resume = P.pos;   /* nothing loaded yet — apply it once metadata lands */
+  }
+  P.lastT = -1; P.stall = 0;
   render();
 }
 
@@ -265,6 +299,11 @@ audio.addEventListener('loadedmetadata', () => {
   if (isFinite(audio.duration) && audio.duration > 1) {
     P.dur = audio.duration; els.durEl.textContent = mmss(P.dur);
   }
+  if (P.resume > .25) {
+    const at = Math.min(P.resume, (isFinite(audio.duration) ? audio.duration : P.resume) - .25);
+    try { audio.currentTime = Math.max(at, 0); P.pos = audio.currentTime; } catch {}
+  }
+  P.resume = 0; P.lastT = -1; P.stall = 0;
 });
 /* the silent reel: no file, a dead file, or a browser that just refuses */
 function goGhost() {
@@ -275,18 +314,30 @@ function goGhost() {
   els.durEl.textContent = mmss(P.dur);
 }
 /* only a real error counts — 'abort'/'emptied' fire whenever we swap the src ourselves */
-audio.addEventListener('error', () => { if (audio.error) goGhost(); });
+audio.addEventListener('error', () => {
+  if (!audio.error) return;
+  const c = audio.error.code;
+  /* network and decode faults happen mid-stream on a file that is perfectly fine */
+  if ((c === 2 || c === 3) && recover()) return;
+  goGhost();
+});
+/* the element telling us it's fine again clears the stall clock */
+['playing', 'canplay', 'seeked'].forEach(ev =>
+  audio.addEventListener(ev, () => { P.stall = 0; P.lastT = -1; P.retry = 0; }));
 audio.addEventListener('ended', ended);
 audio.addEventListener('timeupdate', () => { if (!P.ghost && !P.seeking) P.pos = audio.currentTime; });
 
 /* the ticking clock — real time or the ghost's */
 function tick(now) {
   if (P.playing) {
-    /* real audio that stops moving isn't coming back — but give it time to buffer */
-    if (!P.ghost) {
-      const grace = audio.readyState >= 3 ? 1600 : 6000;
+    /* a clock that stops moving is usually the browser re-buffering after a pause,
+       not a file that vanished — rebuild the stream before writing the track off */
+    if (!P.ghost && !audio.paused && !P.recovering && !P.seeking) {
       if (audio.currentTime !== P.lastT) { P.lastT = audio.currentTime; P.stall = 0; }
-      else if ((P.stall += now - P.last) > grace) goGhost();
+      else {
+        const grace = audio.readyState >= 3 ? 4000 : 20000;
+        if ((P.stall += now - P.last) > grace) { P.stall = 0; if (!recover()) goGhost(); }
+      }
     }
     if (P.ghost) {
       P.pos += (now - P.last) / 1000;
