@@ -36,7 +36,7 @@ const TAPE = {
      There's <em>Euphoria</em> for the ridiculously happy moments, <em>Blue</em> for the quieter ones, and <em>comethru</em> for those days when you just need someone around without having to explain why. 
      There's even a little <em>Ghost</em> in here, for all the moments that pass too quickly but somehow stay. 
      And <em>Salaam</em> — because sometimes a simple thank you doesn't feel like enough.
-     So no, there's no big message hidden between the songs. Just a collection of little things that reminded me of you. 
+     Maybe, there's a hidden message between the songs. A collection of little things that reminded me of you. 
      Maybe that's what playlists are good for — saying the things you don't always know how to say, without making a big deal out of them. 
      I just hope somewhere between Side A and Side B, you smile at least once and think, "okay, this is actually pretty nice."`,
      sign: "— still on Side B"
